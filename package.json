@@ -1,0 +1,39 @@
+{
+  "name": "geomind",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/vue-fontawesome": "^3.0.5",
+    "axios": "^1.5.0",
+    "core-js": "^3.8.3",
+    "element-plus": "^2.3.14",
+    "gcoord": "^1.0.5",
+    "konva": "^9.2.2",
+    "moment": "^2.29.4",
+    "pinia": "^2.1.7",
+    "popmotion": "^11.0.5",
+    "querystring": "^0.2.1",
+    "register-service-worker": "^1.7.2",
+    "sass-loader": "^13.3.2",
+    "tiff.js": "^1.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "util": "^0.12.5",
+    "utils": "^0.2.2",
+    "vue": "^3.2.13",
+    "vue-router": "^4.0.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.2.1",
+    "vite-plugin-pwa": "^0.21.1"
+  }
+}
