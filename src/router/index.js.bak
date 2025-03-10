@@ -1,0 +1,357 @@
+import { createRouter, createWebHashHistory } from 'vue-router'
+import { useUserStore } from '@/stores/userStore'
+
+
+const routes = [
+  // {
+  //   path: '/',
+  //   name: 'home',
+  //   component: HomeView
+  // },
+  // {
+  //   path: '/about',
+  //   name: 'about',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  // },
+
+  //欢迎页面
+  {
+    path:'/',
+    name:'welcome',
+    component:()=>import('../views/Welcome.vue')
+  },
+  //用户导航条
+  {
+    path:'/user/head',
+    name:'head',
+    component:()=>import('../views/UserHead.vue')
+  },
+  // 标注员获取任务
+  {
+    path:'/user/get/task/:id/:role',
+    name:'get_task',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/user_work/Annotator_get_task.vue')
+  },
+  // 标注员获取任务详情
+  {
+    path: '/annotator/get/task/info/:taskId',
+    name: 'annotator_get_task_info',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/task/TaskInfo.vue')
+  },
+  //标注员查看地图
+  {
+    path:"/user/map",
+    name:'user_map',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/Map.vue')
+  },
+  {
+    path:"/admin/map",
+    name:'admin_map',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/Map.vue')
+  },
+  {
+    path:"/map",
+    name:'map',
+    component:()=>import('../views/Map.vue')
+  },
+  // //标注员标注界面
+  // {
+  //   path:'/annotator/work',
+  //   name:'annotator_work',
+  //   component:()=>import('../views/Annotator_work.vue')
+  // },
+  // //审核员审核界面
+  // {
+  //   path:'/checker/work',
+  //   name:'checker_work',
+  //   component:()=>import('../views/Checker_work.vue')
+  // },
+  //标注员标注界面
+  {
+    path:'/work/annotator/:taskId',
+    name:'annotator_work',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/Annotator_work.vue')
+  },
+  //审核员审核界面
+  {
+    path:'/work/checker/:taskId',
+    name:'checker_work',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/Checker_work.vue')
+  },
+  //任务列表
+  {
+    path:'/user/task/list/:id/:role',
+    name:'task_list',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/task/UserTask.vue')
+  },
+  //管理员工作界面
+  {
+    path:'/admin/work',
+    name:'admin_work',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/Admin_work.vue')
+  },
+  //管理员导航
+  {
+    path:'/admin/head',
+    name:'admin_head',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/AdminHead.vue')
+  },
+  //管理员任务列表
+  {
+    path:'/admin/task_list',
+    name:'admin_task_list',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/user_work/Admin_tasklist.vue')
+  },
+  //管理员任务详情
+  {
+    path: '/admin/task/info/:taskId',
+    name: 'task_info',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/task/TaskInfo.vue')
+  },
+  //用户信息
+  {
+    path:'/user/info/:id/:role',
+    name:'user_info',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/user_model/UserInformation.vue')
+  },
+  {
+    path:'/Log',
+    name:'Log',
+    props: true,      // 启用路由参数传递
+    redirect: '/Log/Choose',
+    children: [
+      {
+        path: 'Choose',
+        name: 'LogChoice',
+        component: ()=>import('../views/LogChoice.vue')
+      },
+      //用户登录
+      {
+        path:'user',
+        name:'UserLog',
+        component:()=>import('../views/user_model/UserLog.vue')
+      },
+      //管理员登录
+      {
+        path:'admin',
+        name:'AdminLog',
+        component:()=>import('../views/user_model/AdminLog.vue')
+      },
+    ]
+  },
+  {
+    path:'/Register',
+    name:'Register',
+    props: true,      // 启用路由参数传递
+    redirect: '/Register/Choose',
+    children: [
+      {
+        path: 'Choose',
+        name: 'RegisterChoice',
+        component: ()=>import('../views/RegisterChoice.vue')
+      },
+      //用户登录
+      {
+        path:'user',
+        name:'UserRegister',
+        component:()=>import('../views/user_model/UserRegister.vue')
+      },
+      //管理员登录
+      {
+        path:'Admin',
+        name:'AdminRegister',
+        component:()=>import('../views/user_model/AdminRegister.vue')
+      },
+    ]
+  },
+  //用户中心-我的组织
+  {
+    path:'/user/organization',
+    name:'UserOrganization',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/user_model/UserOrganization.vue')
+  },
+  //用户中心-我的组织-加入组织
+  {
+    path:'/user/organization/apply',
+    name:'JoinOrgnizationModal',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/user_model/JoinOrganizationModal.vue')
+  },
+  //用户中心-我的任务
+  {
+    path:'/user/task/list',
+    name:'UserTask',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/task/UserTask.vue')
+  },
+  //用户中心-我的信箱
+  {
+    path:'/user/mailbox',
+    name:'UserMailbox ',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/user_model/UserMailbox.vue')
+  },
+  //邮箱验证
+  {
+    path:'/邮箱验证',
+    name:'UserMailboxCheck',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/user_model/UserMailboxCheck.vue')
+  },
+  //邮箱验证
+  {
+    path:'/邮箱验证',
+    name:'UserMailboxCheck',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/user_model/UserMailboxCheck.vue')
+  },
+  //邮箱验证
+  {
+    path:'/邮箱验证',
+    name:'UserMailboxCheck',
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/user_model/UserMailboxCheck.vue')
+  },
+  {
+    path:'/admin',
+    name:'admin',
+    props: true,
+    redirect: '/admin/info',
+    meta:{ requiresAuth: true },
+    children: [
+      { //管理员中心-管理员信息
+        path:'/info',
+        name:'admin_info',
+        component:()=>import('../views/user_model/AdminInformation.vue'),
+        props: true, // 启用props传递
+      },
+      { //管理员中心-组织管理
+        path:'/organization',
+        name:'admin_organization',
+        component:()=>import('../views/user_model/AdminOrganization.vue'),
+      },
+      { //管理员中心-成员管理
+        path:'/member',
+        name:'admin_member',
+        component:()=>import('../views/user_model/AdminMember.vue')
+      },
+      { //管理员中心-我的邮箱
+        path:'/mailbox',
+        name:'admin_mailbox',
+        component:()=>import('../views/user_model/AdminMailbox.vue'),
+      },
+      { //管理员中心-组织注册
+        path:'/register',
+        name:'organization_register',
+        component:()=>import('../views/user_model/OrganizationRegister.vue')
+      },
+    ]
+  },
+
+  {
+    path:'/user/point/center',
+    name:'PointCenter',
+    props: true,
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/points/PointsCenter.vue')
+  },
+  // {
+  //   path:'/user/point/center',
+  //   name:'Point',
+  //   props: true,      // 启用路由参数传递
+  //   redirect: '/user/point/center/cash',
+  //   children: [
+  //     {
+  //       path: '/user/point/center/cash',
+  //       name: 'point_center_cash',
+  //       component:()=>import('../views/user_work/Points_cash.vue')
+  //     },
+  //     //积分中心-积分兑换-user
+  //     {
+  //       path:'/user/point/center/details',
+  //       name:'point_center_details',
+  //       component:()=>import('../views/points/PointsCenter.vue')
+  //     },
+  //     //积分中心_积分明细-user
+  //     {
+  //       path:'/user/point/center/statics',
+  //       name:'point_statics',
+  //       component:()=>import('../views/user_work/Points_statistics.vue')
+  //     },
+  //     //积分中心-统计总览-user
+  //   ]
+  // },
+
+  {
+    path:'/admin/point/center',
+    name:'AdminPoint',
+    props: true,
+    meta:{ requiresAuth: true },
+    component:()=>import('../views/points/AdminPointsCenter.vue')
+  },
+
+  // {
+  //   path:'/admin/point/center',
+  //   name:'AdminPoint',
+  //   props: true,      // 启用路由参数传递
+  //   redirect: '/admin/point/center/details',
+  //   children: [
+  //     {
+  //       path:'/admin/point/center/details',
+  //       name:'admin_point_center_details',
+  //       component:()=>import('../views/user_work/Points_details.vue')
+  //     },
+  //     //积分中心_积分明细-admin
+  //     {
+  //       path:'/admin/point/center/statics',
+  //       name:'admin_point_statics',
+  //       component:()=>import('../views/user_work/Points_statistics.vue')
+  //     },
+  //     //积分中心-统计总览-admin
+  //   ]
+  // },
+
+  //  {
+  //   path: '/:catchAll(.*)',
+  //   component: () => import('@/views/user_work/Admin_taskinf'),
+  //   meta: { hidden: true },
+  // }
+  { path: "/:pathMatch(.*)", redirect: "/Log/Choose", name: "notMatch", hidden: true },
+
+
+
+
+  
+]
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes
+})
+
+router.beforeEach(async (to,from) => {
+  const userStore = useUserStore();
+  if(to.meta.requiresAuth){
+      if(!userStore.getToken && to.path !== '/Log/Choose'){
+          return {path: '/Log/Choose'}
+      }
+  }
+})
+
+export default router
